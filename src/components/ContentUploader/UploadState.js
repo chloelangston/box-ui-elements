@@ -11,6 +11,7 @@ import UploadEmptyState from 'box-react-ui/lib/icons/states/UploadEmptyState';
 import UploadSuccessState from 'box-react-ui/lib/icons/states/UploadSuccessState';
 import messages from '../messages';
 import UploadStateContent from './UploadStateContent';
+import Browser from '../../util/Browser';
 import {
     VIEW_ERROR,
     VIEW_UPLOAD_EMPTY,
@@ -84,15 +85,17 @@ const UploadState = ({
                             )
                         }
                         message={
-                            isFolderUploadEnabled ? (
-                                <FormattedMessage
-                                    {...messages.uploadEmptyWithFolderUploadEnabled}
-                                />
-                            ) : (
-                                <FormattedMessage
-                                    {...messages.uploadEmptyWithFolderUploadDisabled}
-                                />
-                            )
+                            !Browser.isIE() ? (
+                                isFolderUploadEnabled ? (
+                                    <FormattedMessage
+                                        {...messages.uploadEmptyWithFolderUploadEnabled}
+                                    />
+                                ) : (
+                                    <FormattedMessage
+                                        {...messages.uploadEmptyWithFolderUploadDisabled}
+                                    />
+                                )
+                            ) : null
                         }
                         onChange={onSelect}
                     />
